@@ -72,6 +72,12 @@ def add_prompt():
     print("프롬프트가 추가되었습니다!")
 
 
+def show_list():
+    print("\n=== 프롬프트 목록 ===")
+    for i, p in enumerate(prompts, 1):
+        print(f"{i}. [{p['category']}] {p['title']}")
+
+
 def main():
     while True:
         show_menu()
@@ -86,11 +92,9 @@ def main():
             show_list()
         elif choice in ["3", "4", "5", "6", "7"]:
             print("아직 구현되지 않은 기능입니다.")
+        else:
+            print("잘못된 입력입니다. 0~7 사이의 번호를 입력해주세요.")
 
-def show_list():
-    print("\n=== 프롬프트 목록 ===")
-    for i, p in enumerate(prompts, 1):
-        print(f"{i}. [{p['category']}] {p['title']}")
 
 if __name__ == "__main__":
     main()
