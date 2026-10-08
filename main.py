@@ -109,6 +109,25 @@ def show_by_category():
         print(f"{i}. {p['title']}{star}")
     print(f"총 {len(found)}개의 프롬프트")
 
+def search_prompt():
+    print("\n=== 프롬프트 검색 ===")
+    keyword = input_required("검색어: ").lower()
+
+    found = [
+        (i, p) for i, p in enumerate(prompts, 1)
+        if keyword in p["title"].lower() or keyword in p["content"].lower()
+    ]
+
+    if not found:
+        print("검색 결과가 없습니다.")
+        return
+
+    print("검색 결과:")
+    for i, p in found:
+        star = " ⭐" if p["favorite"] else ""
+        print(f"{i}. [{p['category']}] {p['title']}{star}")
+    print(f"{len(found)}개의 프롬프트를 찾았습니다.")
+
 
 def main():
     while True:
@@ -124,7 +143,9 @@ def main():
             show_list()
         elif choice == "3":
             show_by_category()
-        elif choice in ["4", "5", "6", "7"]:
+        elif choice == "4":
+            search_prompt()
+        elif choice in ["5", "6", "7"]:
             print("아직 구현되지 않은 기능입니다.")
         else:
             print("잘못된 입력입니다. 0~7 사이의 번호를 입력해주세요.")
