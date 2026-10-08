@@ -82,11 +82,15 @@ def main():
             break
         elif choice == "1":
             add_prompt()
-        elif choice in ["2", "3", "4", "5", "6", "7"]:
+        elif choice == "2":
+            show_list()
+        elif choice in ["3", "4", "5", "6", "7"]:
             print("아직 구현되지 않은 기능입니다.")
-        else:
-            print("잘못된 입력입니다. 0~7 사이의 번호를 입력해주세요.")
 
+def show_list():
+    print("\n=== 프롬프트 목록 ===")
+    for i, p in enumerate(prompts, 1):
+        print(f"{i}. [{p['category']}] {p['title']}")
 
 if __name__ == "__main__":
     main()
