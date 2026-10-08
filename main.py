@@ -128,6 +128,28 @@ def search_prompt():
         print(f"{i}. [{p['category']}] {p['title']}{star}")
     print(f"{len(found)}개의 프롬프트를 찾았습니다.")
 
+def show_detail():
+    print("\n=== 프롬프트 상세 보기 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    choice = input("번호 입력: ").strip()
+    if not (choice.isdigit() and 1 <= int(choice) <= len(prompts)):
+        print(f"잘못된 번호입니다. 1~{len(prompts)} 사이의 번호를 입력해주세요.")
+        return
+
+    p = prompts[int(choice) - 1]
+    star = "⭐" if p["favorite"] else "-"
+    print("─" * 28)
+    print(f"제목: {p['title']}")
+    print(f"카테고리: {p['category']}")
+    print(f"즐겨찾기: {star}")
+    print("─" * 28)
+    print("내용:")
+    print(p["content"])
+    print("─" * 28)
+
 
 def main():
     while True:
@@ -145,7 +167,9 @@ def main():
             show_by_category()
         elif choice == "4":
             search_prompt()
-        elif choice in ["5", "6", "7"]:
+        elif choice == "5":
+            show_detail()
+        elif choice in ["6", "7"]:
             print("아직 구현되지 않은 기능입니다.")
         else:
             print("잘못된 입력입니다. 0~7 사이의 번호를 입력해주세요.")
