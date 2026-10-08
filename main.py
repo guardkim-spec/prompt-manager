@@ -21,6 +21,7 @@ prompts = [
     },
 ]
 
+
 def show_menu():
     print("\n=== 나만의 프롬프트 관리 ===")
     print("1. 프롬프트 추가")
@@ -33,6 +34,44 @@ def show_menu():
     print("0. 종료")
 
 
+def input_required(label):
+    while True:
+        value = input(label).strip()
+        if value:
+            return value
+        print("빈 값은 입력할 수 없습니다. 다시 입력해주세요.")
+
+
+def select_category():
+    print("카테고리 선택:")
+    for i, name in enumerate(CATEGORIES, 1):
+        print(f"{i}) {name}")
+    print("0) 직접 입력")
+
+    while True:
+        choice = input("선택: ").strip()
+        if choice == "0":
+            return input_required("카테고리 직접 입력: ")
+        if choice.isdigit() and 1 <= int(choice) <= len(CATEGORIES):
+            return CATEGORIES[int(choice) - 1]
+        print("잘못된 입력입니다. 목록의 번호를 입력해주세요.")
+
+
+def add_prompt():
+    print("\n=== 프롬프트 추가 ===")
+    title = input_required("제목: ")
+    content = input_required("내용: ")
+    category = select_category()
+
+    prompts.append({
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False,
+    })
+    print("프롬프트가 추가되었습니다!")
+
+
 def main():
     while True:
         show_menu()
@@ -41,7 +80,9 @@ def main():
         if choice == "0":
             print("프로그램을 종료합니다.")
             break
-        elif choice in ["1", "2", "3", "4", "5", "6", "7"]:
+        elif choice == "1":
+            add_prompt()
+        elif choice in ["2", "3", "4", "5", "6", "7"]:
             print("아직 구현되지 않은 기능입니다.")
         else:
             print("잘못된 입력입니다. 0~7 사이의 번호를 입력해주세요.")
